@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+    .clip-polygon{
+        clip-path:polygon(0 0, 100% 0, 100% 38%, 32% 95%, 0 70%);
+        -webkit-clip-path:polygon(0 0, 100% 0, 100% 38%, 32% 95%, 0 70%)
+    }
+}
+ 

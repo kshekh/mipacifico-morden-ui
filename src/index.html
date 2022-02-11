@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard eCommerce - Modern Admin</title>
+    <!-- icons -->
+    <link href="assets/dist/css/vendors.min.css" rel="stylesheet">
+    <link href="assets/dist/fonts/simple-line-icons/style.min.css" rel="stylesheet">
+    <link href="../node_modules/apexcharts/dist/apexcharts.css" rel="stylesheet">
+    <link href="../node_modules/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="../node_modules/tippy.js/dist/tippy.css" rel="stylesheet">
+
+    <!-- Add CSS via jsdilvr CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/ycodetech/horizontal-timeline-2.0@2/css/horizontal_timeline.2.0.min.css">
+
+    <!-- Google Fonts Fonts -->
+    <link rel="stylesheet" href="../node_modules/typeface-open-sans/index.css">
+    <link rel="stylesheet" href="../node_modules/typeface-quicksand/index.css">
+
+    <!-- TailwindCSS -->
+    <link href="assets/dist/css/styles.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-color-12">
+
+    <div class="overflow-hidden min-h-screen pt-18 flex flex-col" x-data="{sidebarMobile :false}">
+        <aside x-show.transition="sidebarMobile " @click.away="sidebarMobile = false" class="sidebar w-sidebar bg-color-1 flex flex-col z-10 lg:z-20 fixed top-0 inset-y-0">
+            <div class="fixed inset-0 bg-black/20 overlay-side lg:hidden" @click="sidebarMobile = !sidebarMobile"></div>
+            <div class="flex flex-col flex-1 relative z-10 h-full">
+                <!-- Logo and swicth -->
+                <div class="w-full bg-color-1 px-4 logo-side">
+                    <ul class="flex justify-between flex-wrap">
+
+                        <li class="flex-1">
+                            <a href="javascript:void(0)" class="flex items-center text-white w-full logo py-5">
+                                <img src="assets/dist/img/logo/logo.png" class="w-9" alt="logo">
+                                <h3 class="inline pl-3 font-medium text-xl s-label font-quicksand">Modern</h3>
+                            </a>
+                        </li>
+                        <li class="hidden lg:flex items-stretch collapse-btn">
+                            <button type="button" class="desktop-toggle flex items-center text-white pl-2 pr-3" data-toggle="collapse"><i class="toggle-icon ft-toggle-left" data-ticon="ft-toggle-left"></i></button>
+                        </li>
+
+                    </ul>
+                </div>
+                <ul class="flex flex-col relative z-10 max-h-full flex-1 px-4 overflow-y-auto sidebar-scroll">
+                    <li>
+                        <a href="javascript:void(0)" class="flex
+                            font-semibold text-color-11 hover:text-white
+                            transition-all ease-in-out duration-300 gap-2
+                            bg-color-18 rounded   py-3 px-4
+                            items-center">
+                            <i class="la la-home text-xl"></i><span class="truncate s-label">eCommerce Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="pt-3 ">
+                        <span class="uppercase font-light text-white text-sm
+                            flex py-3 tracking-wider s-h-title">Ecommerce</span>
+                        <i class="la la-ellipsis-h text-white text-sm s-h-ellipsis hidden"></i>
+                    </li>
+                    <li class=""><a href="javascript:void(0)" class="font-light text-color-11 hover:text-white
+                            hover:indent-1 transition-all ease-in-out
+                            duration-300  items-center gap-2 flex
+                            py-3"><i class="la la-th-large text-2xl"></i><span
+                            class="tracking-wider s-label">Geschäft</span></a></li>
+                    <li class=""><a href="javascript:void(0)" class="font-light text-color-11 hover:text-white
+                            hover:indent-1 transition-all ease-in-out
+                            duration-300  items-center gap-2 flex
+                            py-3"><i class="la la-list text-2xl"></i><span
+                            class="tracking-wider s-label">Produktdetail</span></a></li>
+                    <li class=""><a href="javascript:void(0)" class="font-light text-color-11 hover:text-white
+                            hover:indent-1 transition-all ease-in-out
+                            duration-300  selection:items-center gap-2 flex
+                            py-3"><i class="la la-shopping-cart text-2xl"></i><span
+                            class="tracking-wider s-label">Einkaufswagen</span></a></li>
+                    <li class=""><a href="javascript:void(0)" class="font-light text-color-11 hover:text-white
+                            hover:indent-1 transition-all ease-in-out
+                            duration-300 items-center gap-2 flex
+                            py-3"><i class="la la-credit-card text-2xl"></i><span
+                            class="tracking-wider s-label">Auschecken</span></a></li>
+                    <li class=""><a href="javascript:void(0)" class="font-light text-color-11 hover:text-white
+                            hover:indent-1 transition-all ease-in-out
+                            duration-300  items-center gap-2 flex
+                            py-3"><i class="la la-check-circle-o text-2xl"></i><span
+                            class="tracking-wider s-label">Bestellung</span></a></li>
+                    <li class="" x-data="{rechnung:false}">
+                        <button type="button" class="cursor-pointer
+                            font-light text-color-11 hover:text-white
+                            hover:indent-1 transition-all ease-in-out
+                            duration-300  items-center gap-2 flex
+                            w-full py-3" @click="rechnung= true"><i class="la la-clipboard text-2xl"></i><span
+                            class="tracking-wider s-label">Rechnung</span>
+                        <i class="la la-angle-right text-sm ml-auto s-arrow
+                                transition-all ease-in-out duration-300
+                                transform" :class="{ 'rotate-90' : rechnung
+                                , '' : !rechnung}"></i>
+                    </button>
+                        <ul class="relative flex flex-col" x-show.transition="rechnung" @click.away="rechnung= false">
+                            <li>
+                                <a href="javascript:void(0)" class="text-sm
+                                    py-2 text-color-11 pl-12 flex
+                                    hover:text-white hover:indent-1
+                                    transition-all ease-in-out
+                                    duration-300"><span class="truncate
+                                        tracking-wider">Rechnungszusammenfassung</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="text-sm
+                                    py-2 text-color-11 pl-12 flex
+                                    hover:text-white hover:indent-1
+                                    transition-all ease-in-out
+                                    duration-300"><span class="truncate
+                                        tracking-wider">Rechnungsvorlage</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" class="text-sm
+                                    py-2 text-color-11 pl-12 flex
+                                    hover:text-white hover:indent-1
+                                    transition-all ease-in-out
+                                    duration-300"><span class="truncate
+                                        tracking-wider">Rechnungsliste</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </aside>
+
+        <div class="w-full flex-1 lg:pl-sidebar main-content">
+            <nav class="fixed top-0 inset-x-0 z-20 lg:z-10 lg:pl-sidebar">
+                <div class="w-full flex items-stretch bg-white shadow-1 h-18 transition-all ease-in-out duration-300">
+                    <div class="w-full bg-color-1 lg:bg-white px-4 flex justify-between logo-top  ">
+                        <div class="flex lg:hidden items-stretch">
+                            <button class="mobileMenuToggle cursor-pointer outline-none text-2xl text-white flex justify-center items-center px-4" @click="sidebarMobile = true">
+                                  <i class="ft-menu"></i>
+                                </button>
+                        </div>
+                        <div class="lg:hidden">
+                            <a href="javascript:void(0)" class="flex items-center text-white w-full logo py-5">
+                                <img src="assets/dist/img/logo/logo.png" class="w-9" alt="logo">
+                                <h3 class="inline pl-3 font-medium text-xl s-label font-quicksand">Modern</h3>
+                            </a>
+                        </div>
+                        <div class="flex items-stretch lg:w-full" x-data="{topbar :false}">
+                            <button class="cursor-pointer outline-none text-3xl text-white flex lg:hidden justify-center items-center px-4" @click="topbar = true">
+                                  <i class="la la-ellipsis-v"></i>
+                                </button>
+                            <div class="lg:flex-1 w-full flex lg:flex absolute inset-x-0 top-full lg:top-0 lg:relative bg-white lg:bg-transparent shadow-6 lg:shadow-none h-16 lg:h-auto items-center topnav" x-show.transition="topbar " @click.away="topbar = false">
+                                <div class="flex flex-1 justify-between items-stretch">
+                                    <div class="flex gap-6" x-data="{searchBox:false}">
+                                        <button class="w-10 h-full flex justify-center
+                                                    items-center right-0 outline-none" @click="searchBox= true">
+                                                <i class="ft-search"></i>
+                                            </button>
+                                        <div class="absolute inset-0 bg-white z-40" x-show.transition="searchBox" @click.away="searchBox= false">
+                                            <form class="w-full h-full">
+                                                <input type="text" placeholder="Explore Modern" class="w-full h-full
+                                                            border-0 px-5 outline-none ring-0
+                                                            focus:ring-0">
+                                            </form>
+                                            <button class="absolute inset-y-0 w-20 flex
+                                                        justify-center items-center right-0
+                                                        outline-none" @click="searchBox= false">
+                                                    <i class="ft-x"></i>
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <!-- right side nave menus -->
+                                    <ul class="flex gap-6 px-5">
+                                        <!-- Language Select -->
+                                        <li class="relative flex items-stretch" x-data="{language:false}">
+                                            <button type="button" class="inline-flex
+                                                        justify-center items-center w-full py-4
+                                                        pl-3 outline-none ring-0 border-0
+                                                        focus:outline-none" id="menu-button" aria-expanded="true" aria-haspopup="true" @click="language=
+                                                        true">
+                                                    <img alt="English"
+                                                        src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg"
+                                                        class="w-6" />
+                                                </button>
+                                            <div class="origin-top-left absolute left-0
+                                                        mt-0 top-full w-40 rounded shadow-lg
+                                                        bg-white ring-1 ring-black
+                                                        ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" x-show.transition="language" @click.away="language= false">
+                                                <div class="py-1" role="none">
+                                                    <a href="#" class="text-color-14
+                                                                flex gap-2 px-4 py-2 text-sm
+                                                                hover:bg-color-12
+                                                                hover:text-color-13" role="menuitem" tabindex="-1" id="menu-item-0">
+                                                        <img alt="English" src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" class="w-6" /><span>English</span>
+                                                    </a>
+                                                    <a href="#" class="text-color-14
+                                                                flex gap-2 px-4 py-2 text-sm
+                                                                hover:bg-color-12
+                                                                hover:text-color-13" role="menuitem" tabindex="-1" id="menu-item-0">
+                                                        <img alt="English" src="http://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" class="w-6" /><span>French</span>
+                                                    </a>
+                                                    <a href="#" class="text-color-14
+                                                                flex gap-2 px-4 py-2 text-sm
+                                                                hover:bg-color-12
+                                                                hover:text-color-13" role="menuitem" tabindex="-1" id="menu-item-0">
+                                                        <img alt="English" src="http://purecatamphetamine.github.io/country-flag-icons/3x2/PT.svg" class="w-6" /><span>Portuguese</span>
+                                                    </a>
+                                                    <a href="#" class="text-color-14
+                                                                flex gap-2 px-4 py-2 text-sm
+                                                                hover:bg-color-12
+                                                                hover:text-color-13" role="menuitem" tabindex="-1" id="menu-item-0">
+                                                        <img alt="English" src="http://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" class="w-6" /><span>German</span>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <!-- notification -->
+                                        <li class="relative flex items-stretch" x-data="{notification:false}">
+                                            <button type="button" class="inline-flex
+                                                        justify-center items-center
+                                                        text-color-14 hover:text-color-14/70
+                                                        outline-none
+                                                        focus:outline-none text-xl relative
+                                                        px-2" @click="notification= true">
+                                                    <span class="sr-only">View notifications</span>
+                                                    <i class="ficon ft-bell"></i>
+                                                    <span class="min-w-6 h-6 px-1
+                                                            rounded-full text-white text-sm flex
+                                                            justify-center items-center
+                                                            bg-color-15 shadow-3 absolute top-2
+                                                            -right-2">2</span>
+                                                </button>
+                                            <div class="origin-top-right absolute
+                                                        right-0
+                                                        mt-0 top-full w-80 rounded shadow-lg
+                                                        bg-white ring-1 ring-black
+                                                        ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" x-show.transition="notification" @click.away="notification= false">
+                                                <div class="py-1 flex flex-col divide-y
+                                                            divide-gray-200" role="none">
+                                                    <div class="flex justify-between
+                                                                px-3 py-2 font-quicksand">
+                                                        <p class="text-xs uppercase
+                                                                    text-color-16">Notifications</p>
+                                                        <!-- badge -->
+                                                        <span class="bg-color-15
+                                                                    text-white leading-none
+                                                                    py-0.5 px-1.5 text-xs
+                                                                    rounded">5 New</span>
+                                                    </div>
+                                                    <div class="flex-1 overflow-auto
+                                                                max-h-60 divide-y
+                                                                divide-gray-200
+                                                                on-hover-scroll">
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="bg-cyan
+                                                                            rounded-full w-8 h-8
+                                                                            absolute left-3
+                                                                            top-1/2 -mt-4
+                                                                            text-white flex
+                                                                            justify-center
+                                                                            items-center"><i class="ft-plus-square"></i></div>
+                                                                <div class="flex
+                                                                            flex-col pl-12
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-color-17">You have new order!</h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">Lorem ipsum dolor sit amet, consectetuer elit.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">30
+                                                                            minutes ago</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="bg-darken-1
+                                                                            rounded-full w-8 h-8
+                                                                            absolute left-3
+                                                                            top-1/2 -mt-4
+                                                                            text-white flex
+                                                                            justify-center
+                                                                            items-center"><i class="ft-download-cloud"></i></div>
+                                                                <div class="flex
+                                                                            flex-col pl-12
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-darken-1">You have new order!</h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">Lorem ipsum dolor sit amet, consectetuer elit.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">30
+                                                                            minutes ago</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="bg-darken-2
+                                                                            rounded-full w-8 h-8
+                                                                            absolute left-3
+                                                                            top-1/2 -mt-4
+                                                                            text-white flex
+                                                                            justify-center
+                                                                            items-center"><i class="ft-alert-triangle"></i></div>
+                                                                <div class="flex
+                                                                            flex-col pl-12
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-darken-2">Warning notifixation
+                                                                    </h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">Vestibulum auctor dapibus neque.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">Today</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="bg-cyan
+                                                                            rounded-full w-8 h-8
+                                                                            absolute left-3
+                                                                            top-1/2 -mt-4
+                                                                            text-white flex
+                                                                            justify-center
+                                                                            items-center"><i class="ft-check-circle"></i></div>
+                                                                <div class="flex
+                                                                            flex-col pl-12
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-color-17">Complete the task </h3>
+                                                                    <small class="text-color-17
+                                                                                text-mi">Last
+                                                                            week</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="bg-teal
+                                                                            rounded-full w-8 h-8
+                                                                            absolute left-3
+                                                                            top-1/2 -mt-4
+                                                                            text-white flex
+                                                                            justify-center
+                                                                            items-center"><i class="ft-file"></i></div>
+                                                                <div class="flex
+                                                                            flex-col pl-12
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-color-17">Generate monthly report</h3>
+                                                                    <small class="text-color-17
+                                                                                text-mi">Last
+                                                                            month</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="pb-1 w-full">
+                                                        <a href="javascript:void(0)" class="flex w-full text-xs
+                                                                    font-light text-color-16
+                                                                    text-center justify-center
+                                                                    py-1 hover:bg-color-12">Read
+                                                                all notifications</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <!-- Mail -->
+                                        <li class="relative flex items-stretch" x-data="{message:false}">
+                                            <button type="button" class="inline-flex
+                                                        justify-center items-center
+                                                        text-color-14 hover:text-color-14/70
+                                                        outline-none
+                                                        focus:outline-none text-xl relative" @click="message= true">
+                                                    <span class="sr-only">Message</span>
+                                                    <i class="ft-mail"></i>
+                
+                                                </button>
+                                            <div class="origin-top-right absolute
+                                                        right-0
+                                                        mt-0 top-full w-80 rounded shadow-lg
+                                                        bg-white ring-1 ring-black
+                                                        ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" x-show.transition="message" @click.away="message= false">
+                                                <div class="py-1 flex flex-col divide-y
+                                                            divide-gray-200" role="none">
+                                                    <div class="flex justify-between
+                                                                px-3 py-2 font-quicksand">
+                                                        <p class="text-xs uppercase
+                                                                    text-color-16">Messages</p>
+                                                        <!-- badge -->
+                                                        <span class="bg-warning
+                                                                    text-white leading-none
+                                                                    py-0.5 px-1.5 text-xs
+                                                                    rounded">4 New</span>
+                                                    </div>
+                                                    <div class="flex-1 overflow-auto
+                                                                max-h-60 divide-y
+                                                                divide-gray-200
+                                                                on-hover-scroll">
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="absolute
+                                                                            left-3
+                                                                            top-1/2 -mt-5">
+                                                                    <div class="rounded-full
+                                                                                w-10 h-10
+                                                                                flex
+                                                                                justify-center
+                                                                                items-center
+                                                                                overflow-hidden">
+                                                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                                    </div>
+                                                                    <span class="w-2 h-2
+                                                                                rounded-full
+                                                                                bg-red-500 block
+                                                                                absolute -mb-1
+                                                                                bottom-1 right-1
+                                                                                ring-2
+                                                                                ring-white"></span>
+                                                                </div>
+                                                                <div class="flex
+                                                                            flex-col pl-16
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-lg
+                                                                                text-color-17">You have new order!</h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">I like your portfolio, let's start.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">30
+                                                                            minutes ago</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="absolute
+                                                                            left-3
+                                                                            top-1/2 -mt-5">
+                                                                    <div class="rounded-full
+                                                                                w-10 h-10
+                                                                                flex
+                                                                                justify-center
+                                                                                items-center
+                                                                                overflow-hidden">
+                                                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                                    </div>
+                                                                    <span class="w-2 h-2
+                                                                                rounded-full
+                                                                                bg-green-500
+                                                                                block absolute
+                                                                                -mb-1 bottom-1
+                                                                                right-1 ring-2
+                                                                                ring-white"></span>
+                                                                </div>
+                                                                <div class="flex
+                                                                            flex-col pl-16
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-lg
+                                                                                text-color-17">You have new order!</h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">I like your portfolio, let's start.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">30
+                                                                            minutes ago</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="absolute
+                                                                            left-3
+                                                                            top-1/2 -mt-5">
+                                                                    <div class="rounded-full
+                                                                                w-10 h-10
+                                                                                flex
+                                                                                justify-center
+                                                                                items-center
+                                                                                overflow-hidden">
+                                                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                                    </div>
+                                                                    <span class="w-2 h-2
+                                                                                rounded-full
+                                                                                bg-orange-500
+                                                                                block absolute
+                                                                                -mb-1 bottom-1
+                                                                                right-1 ring-2
+                                                                                ring-white"></span>
+                                                                </div>
+                                                                <div class="flex
+                                                                            flex-col pl-16
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-lg
+                                                                                text-color-17">You have new order!</h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">I like your portfolio, let's start.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">30
+                                                                            minutes ago</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                        <a href="javascript:void(0)" class="flex flex-col">
+                                                            <div class="p-2 relative
+                                                                        w-full">
+                                                                <div class="absolute
+                                                                            left-3
+                                                                            top-1/2 -mt-5">
+                                                                    <div class="rounded-full
+                                                                                w-10 h-10
+                                                                                flex
+                                                                                justify-center
+                                                                                items-center
+                                                                                overflow-hidden">
+                                                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                                    </div>
+                                                                    <span class="w-2 h-2
+                                                                                rounded-full
+                                                                                bg-gray-400
+                                                                                block absolute
+                                                                                -mb-1 bottom-1
+                                                                                right-1 ring-2
+                                                                                ring-white"></span>
+                                                                </div>
+                                                                <div class="flex
+                                                                            flex-col pl-16
+                                                                            font-quicksand">
+                                                                    <h3 class="font-light
+                                                                                text-lg
+                                                                                text-color-17">You have new order!</h3>
+                                                                    <p class="text-xs
+                                                                                text-color-17
+                                                                                leading-none">I like your portfolio, let's start.
+                                                                    </p>
+                                                                    <small class="text-color-17
+                                                                                text-mi">30
+                                                                            minutes ago</small>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="pb-1 w-full">
+                                                        <a href="javascript:void(0)" class="flex w-full text-xs
+                                                                    font-light text-color-16
+                                                                    text-center justify-center
+                                                                    py-1 hover:bg-color-12">Read
+                                                                all messages</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <!-- User -->
+                                        <li class="relative flex items-stretch" x-data="{user:false}">
+                                            <button type="button" class="max-w-xs flex
+                                                        items-center text-sm focus:outline-none
+                                                        outline-none gap-2 relative" id="user-menu-button" aria-expanded="false" aria-haspopup="true" @click="user=
+                                                        true">
+                                                    <span class="text-color-14 font-medium xl:inline hidden">John
+                                                        Doe</span>
+                                                    <div class="bg-gray-800 rounded-full
+                                                            relative">
+                                                        <span class="overflow-hidden">
+                                                            <img class="h-8 w-8
+                                                                    rounded-full"
+                                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                                alt=""></span>
+                                                        <span class="w-2 h-2 rounded-full
+                                                                bg-green-500 block absolute
+                                                                -mb-1 bottom-0.5 right-0.5
+                                                                ring-2 ring-white"></span>
+                                                    </div>
+                                                </button>
+
+                                            <div class="origin-top-right absolute
+                                                        right-0 mt-0 top-full w-40 rounded-md
+                                                        shadow-lg py-1.5 bg-white ring-1
+                                                        ring-black ring-opacity-5
+                                                        focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show.transition="user" @click.away="user= false">
+                                                <!-- Active: "bg-gray-100", Not Active: "" -->
+                                                <a href="#" class="flex items-center
+                                                            gap-2 px-4 py-2 text-sm
+                                                            text-color-14 hover:bg-color-12
+                                                            hover:text-color-13" role="menuitem" tabindex="-1" id="user-menu-item-0"><i
+                                                            class="ft-user"></i><span>Your
+                                                            Profile</span></a>
+
+                                                <a href="#" class="flex items-center
+                                                            gap-2 px-4 py-2 text-sm
+                                                            text-color-14 hover:bg-color-12
+                                                            hover:text-color-13" role="menuitem" tabindex="-1" id="user-menu-item-1"><i
+                                                            class="ft-clipboard"></i><span>Settings</span></a>
+                                                <a href="#" class="flex items-center
+                                                            gap-2 px-4 py-2 text-sm
+                                                            text-color-14 hover:bg-color-12
+                                                            hover:text-color-13" role="menuitem" tabindex="-1" id="user-menu-item-2"><i
+                                                            class="ft-check-square"></i><span>Sign
+                                                            out</span></a>
+                                                <hr class="border-0 border-b-2
+                                                            border-gray-200 my-1.5">
+                                                <button class="flex items-center gap-2
+                                                            w-full outline-none px-4 py-2
+                                                            text-sm text-color-14
+                                                            hover:bg-color-12
+                                                            hover:text-color-13">
+                                                        <i class="ft-power"></i><span>Logout</span>
+                                                    </button>
+                                            </div>
+                                        </li>
+
+
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="flex-1 gap-5 2xl:gap-8 flex flex-col items-stretch relative max-w-full  p-5 2xl:p-10  ">
+                <div class="grid xl:grid-cols-4 md:grid-cols-2 gap-5 2xl:gap-8 w-full">
+                    <div class="bg-white rounded-md shadow-4 hover:shadow-5
+                            h-28 p-5 transition-all ease-in-out duration-300
+                            transform hover:scale-105 hover:-translate-y-2 flex
+                            flex-col font-quicksand">
+                        <div class="flex justify-between">
+                            <div class="flex flex-col">
+                                <p class="text-2xl text-color-3">850</p>
+                                <small class="text-color-17">Products Sold
+                                </small>
+                            </div>
+                            <div class="text-color-3"><i class="icon-basket-loaded text-4.5xl"></i></div>
+                        </div>
+                        <div class="bg-gray-200 shadow-6 rounded-full h-2 w-full mt-auto overflow-hidden">
+                            <div class="bg-1 h-full" style="width: 70%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-md shadow-4 hover:shadow-5
+                        h-28 p-5 transition-all ease-in-out duration-300
+                        transform hover:scale-105 hover:-translate-y-2 flex
+                        flex-col font-quicksand">
+                        <div class="flex justify-between">
+                            <div class="flex flex-col">
+                                <p class="text-2xl text-warning">$748 </p>
+                                <small class="text-color-17">Net Profit
+                                </small>
+                            </div>
+                            <div class="text-warning"><i class="icon-pie-chart text-4.5xl"></i></div>
+                        </div>
+                        <div class="bg-gray-200 shadow-6 rounded-full h-2 w-full mt-auto overflow-hidden">
+                            <div class="bg-2 h-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-md shadow-4 hover:shadow-5
+                        h-28 p-5 transition-all ease-in-out duration-300
+                        transform hover:scale-105 hover:-translate-y-2 flex
+                        flex-col font-quicksand">
+                        <div class="flex justify-between">
+                            <div class="flex flex-col">
+                                <p class="text-2xl text-success">146</p>
+                                <small class="text-color-17">New Customers
+                                </small>
+                            </div>
+                            <div class="text-success"><i class="icon-user-follow text-4.5xl"></i></div>
+                        </div>
+                        <div class="bg-gray-200 shadow-6 rounded-full h-2 w-full mt-auto overflow-hidden">
+                            <div class="bg-3 h-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-md shadow-4 hover:shadow-5
+                        h-28 p-5 transition-all ease-in-out duration-300
+                        transform hover:scale-105 hover:-translate-y-2 flex
+                        flex-col font-quicksand">
+                        <div class="flex justify-between">
+                            <div class="flex flex-col">
+                                <p class="text-2xl text-color-15">99.89 %</p>
+                                <small class="text-color-17">Customer Satisfaction
+                                </small>
+                            </div>
+                            <div class="text-color-15"><i class="icon-heart text-4.5xl"></i></div>
+                        </div>
+                        <div class="bg-gray-200 rounded-full shadow-6 h-2 w-full mt-auto overflow-hidden">
+                            <div class="bg-4 h-full" style="width: 90%;"></div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="flex flex-col xl:grid xl:grid-cols-12 gap-5 2xl:gap-8 w-full">
+                    <div class="bg-white flex flex-col rounded shadow-4 p-5 xl:col-span-8">
+                        <div class="flex justify-between flex-col xs:flex-row gap-3">
+                            <div class="relative" x-data="{products:false}">
+                                <button type="button" class="text-color-14 sm:text-sm uppercase gap-1 flex items-center" @click="products= true">
+                                    <span class="text-xs sm:text-sm">Products sales</span><i class="la la-angle-down text-xs ml-auto transition-all ease-in-out duration-300 transform" :class="{'rotate-180': products, '':!products}"></i>
+                                </button>
+                                <div class="origin-top-left absolute left-0 mt-0 z-20 top-full w-40 rounded-md shadow-lg py-1.5 bg-white ring-1 ring-black ring-opacity-5
+                                        focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show.transition="products" @click.away="products = false">
+                                    <!-- Active: "bg-gray-100", Not Active: "" -->
+                                    <a href="#" class="flex items-center
+                                            gap-2 px-4 py-2 text-sm
+                                            text-color-14 hover:bg-color-12
+                                            hover:text-color-13" role="menuitem" tabindex="-1" id="user-menu-item-0"><span>Sales</span></a>
+
+                                    <a href="#" class="flex items-center
+                                            gap-2 px-4 py-2 text-sm
+                                            text-color-14 hover:bg-color-12
+                                            hover:text-color-13" role="menuitem" tabindex="-1" id="user-menu-item-1"><span>Total Sales</span></a>
+                                    <a href="#" class="flex items-center
+                                            gap-2 px-4 py-2 text-sm
+                                            text-color-14 hover:bg-color-12
+                                            hover:text-color-13" role="menuitem" tabindex="-1" id="user-menu-item-2"><span>Profit</span></a>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="button" class="bg-color-3 py-2 px-3 text-white rounded text-sm cursor-pointer"><span>Day</span></button>
+                                <button type="button" class="text-color-3 hover:bg-color-3 hover:text-white py-2 sm:px-3 bg-white rounded text-sm cursor-pointer"><span>Week</span></button>
+                                <button type="button" class="text-color-3 hover:bg-color-3 hover:text-white py-2 sm:px-3 bg-white rounded text-sm cursor-pointer"><span>Month</span></button>
+                            </div>
+                        </div>
+                        <div class="flex-1 pt-4">
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                    <!-- Right parts -->
+                    <div class="bg-white flex flex-col rounded shadow-4 p-5 xl:col-span-4">
+                        <!-- Heading -->
+                        <div class="flex justify-between">
+                            <div class="relative" x-data="{products:false}">
+                                <h3 class="text-color-14 text-sm uppercase gap-1 flex items-center"><span>New
+                                        Orders</span></h3>
+
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="button" class="text-color-14 py-2 px-3 text-sm cursor-pointer"><i
+                                        class="ft-rotate-cw"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col -mx-5">
+                            <div class="py-2 align-middle inline-block min-w-full overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="border-b-2 border-gray-200">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                                Product</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                                Customers</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                                Total</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                iPhone X</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500 overflow-hidden ">
+                                                <div class="inline-flex -space-x-2 relative">
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4 more</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                $8999</td>
+
+
+                                        </tr>
+                                        <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                Pixel 2
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500 overflow-hidden ">
+                                                <div class="inline-flex -space-x-2 relative">
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4 more</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                $5550</td>
+
+
+                                        </tr>
+                                        <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                OnePlus
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500 overflow-hidden ">
+                                                <div class="inline-flex -space-x-2 relative">
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4 more</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                $9000</td>
+
+
+                                        </tr>
+                                        <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                OnePlus
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500 overflow-hidden ">
+                                                <div class="inline-flex -space-x-2 relative">
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4 more</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                $9000</td>
+
+
+                                        </tr>
+                                        <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                OnePlus
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500 overflow-hidden ">
+                                                <div class="inline-flex -space-x-2 relative">
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <img class="avtar-tooltip inline-block h-8 w-8 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                        alt="">
+
+
+                                                    <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4 more</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm sm:text-base text-gray-500">
+                                                $9000</td>
+
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="bg-white flex flex-col rounded shadow-4 p-5 ">
+                    <!-- Heading -->
+                    <div class="flex justify-between flex-col xs:flex-row gap-3">
+                        <div class="relative" x-data="{products:false}">
+                            <h3 class="text-color-14 text-sm uppercase gap-1 flex items-center"><span>Recent
+                                    Transactions</span></h3>
+
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="button" class="text-white rounded-md xs:rounded-full shadow-6 py-1 sm:py-2 sm:px-3 px-2 sm:text-sm text-xs cursor-pointer uppercase bg-red-500 hover:bg-red-600"><span>Invoice
+                                    Summary</span></button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col -mx-5">
+                        <div class="py-2 align-middle inline-block min-w-full overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="border-b-2 border-gray-200">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                            Status</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                            Invoice# </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800 whitespace-nowrap">
+                                            Customer Name </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                            Products</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                            Categories</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                            Shipping</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs 2xl:text-base font-semibold text-gray-800">
+                                            Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <i class="la la-dot-circle-o text-green-500 mr-2 text-lg"></i>
+                                            <span>Paid</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <a href="javascript:void(0)" class="text-link hover:text-link-1">INV-001001</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <div class="flex gap-2 items-center justify-start">
+                                                <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <span>Elizabeth W.</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500 overflow-hidden">
+                                            <div class="inline-flex -space-x-2 relative">
+
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                    alt="">
+
+
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+
+
+                                                <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4
+                                                    more</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <a href="javascript:void(0)" class="tracking-wider rounded-full py-1.5 px-3 text-mi cursor-pointer uppercase border border-red-500 text-red-500 hover:bg-red-500 hover:text-white">Food</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <div class="bg-gray-200 rounded-full shadow-6 h-2 w-full mt-auto overflow-hidden">
+                                                <div class="bg-4 h-full" style="width: 60%;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            $ 1200.00</td>
+
+
+                                    </tr>
+                                    <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <i class="la la-dot-circle-o text-green-500 mr-2 text-lg"></i>
+                                            <span>Paid</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <a href="javascript:void(0)" class="text-link hover:text-link-1">INV-001001</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <div class="flex gap-2 items-center justify-start">
+                                                <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <span>Elizabeth W.</span>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500 overflow-hidden">
+                                            <div class="inline-flex -space-x-2 relative">
+
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                    alt="">
+
+
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+
+
+                                                <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4
+                                                    more</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <a href="javascript:void(0)" class="tracking-wider rounded-full py-1.5 px-3 text-mi cursor-pointer uppercase border border-red-500 text-red-500 hover:bg-red-500 hover:text-white">Food</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <div class="bg-gray-200 rounded-full shadow-6 h-2 w-full mt-auto overflow-hidden">
+                                                <div class="bg-4 h-full" style="width: 60%;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            $ 1200.00</td>
+
+
+                                    </tr>
+                                    <tr class="transition-all ease-in-out duration-300 hover:bg-gray-100">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <i class="la la-dot-circle-o text-red-500 mr-2 text-lg"></i>
+                                            <span>Declined</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <a href="javascript:void(0)" class="text-link hover:text-link-1">INV-001002</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <div class="flex gap-2 items-center justify-start">
+                                                <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <span>Doris W.</span>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500 overflow-hidden">
+                                            <div class="inline-flex -space-x-2 relative">
+
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2 tooltip-top-left" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white  cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                                                    alt="">
+
+
+                                                <img class="avtar-tooltip2 inline-block h-8 w-8 ring-2 ring-white cursor-pointer shadow-6 transition-all ease-in-out duration-300 transform hover:-translate-y-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    alt="">
+
+
+                                                <span class="absolute bg-white/80 text-gray-600 text-xs py-1 px-3 rounded top-0 left-full">+4
+                                                    more</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <a href="javascript:void(0)" class="tracking-wider rounded-full py-1.5 px-3 text-mi cursor-pointer uppercase border border-warning text-warning hover:bg-warning hover:text-white">Electronics</a>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            <div class="bg-gray-200 rounded-full shadow-6 h-2 w-full mt-auto overflow-hidden">
+                                                <div class="bg-4 h-full" style="width: 60%;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm 2xl:text-base text-gray-500">
+                                            $ 1200.00</td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col xl:grid xl:grid-cols-12 gap-5 2xl:gap-8 w-full">
+                    <div class="xl:col-span-8 bg-white flex flex-col rounded shadow-4 p-5 overflow-hidden">
+                        <div class="overflow-hidden h-full -mx-5">
+                            <img src="assets/dist/img/revenue.jpg" alt="revenue" class="h-full max-w-none">
+                        </div>
+                        <div class="sm:grid sm:grid-cols-4 gap-5 border-t border-gray-200 -mx-5 px-5 pt-5 mt-auto">
+                            <div class="flex flex-col gap-2 items-center py-3">
+                                <p class="text-gray-400 text-sm text-center">Total Products</p>
+                                <p class="text-xl 2xl:text-3xl text-center text-gray-500">18.6 k</p>
+                                <div class="bg-gray-200 shadow-6 h-2 w-full mt-2 overflow-hidden">
+                                    <div class="bg-1 h-full" style="width: 70%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-2 items-center py-3">
+                                <p class="text-gray-400 text-sm text-center">Total Sales </p>
+                                <p class="text-xl 2xl:text-3xl text-center text-gray-500">64.54 M</p>
+                                <div class="bg-gray-200 shadow-6 h-2 w-full mt-2 overflow-hidden">
+                                    <div class="bg-2 h-full" style="width: 70%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-2 items-center py-3">
+                                <p class="text-gray-400 text-sm text-center">Total Cost</p>
+                                <p class="text-xl 2xl:text-3xl text-center text-gray-500">24.38 B</p>
+                                <div class="bg-gray-200 shadow-6 h-2 w-full mt-2 overflow-hidden">
+                                    <div class="bg-3 h-full" style="width: 70%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-2 items-center py-3">
+                                <p class="text-gray-400 text-sm text-center">Total Revenue</p>
+                                <p class="text-xl 2xl:text-3xl text-center text-gray-500">36.72 M</p>
+                                <div class="bg-gray-200 shadow-6 h-2 w-full mt-2 overflow-hidden">
+                                    <div class="bg-4 h-full" style="width: 70%;"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="xl:col-span-4 bg-white flex flex-col rounded shadow-4 p-5">
+                        <div id="chartBar"></div>
+                        <div class="pt-1 flex flex-col w-full mt-auto">
+                            <h3 class="text-gray-500 2xl:text-lg text-center">Total monthly Sales.</h3>
+                            <div class="flex justify-center gap-3 pt-3">
+                                <button type="button" class="text-white shadow-6 py-1 px-4 flex items-center gap-2 text-xs cursor-pointer uppercase bg-red-500 hover:bg-red-700"><span>Statistics</span><i
+                                        class="ft-bar-chart"></i></button>
+                                <span class="text-gray-400 font-light">for the last year.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col xl:grid xl:grid-cols-12 gap-5 2xl:gap-8 w-full">
+                    <div class="col-span-4 bg-white flex flex-col rounded shadow-4 p-5">
+                        <h3 class="text-color-14 font-medium uppercase gap-1 flex items-center pb-4">Basic Card</h3>
+                        <div class="-mx-5">
+                            <img src="assets/dist/img/05.jpg" alt="">
+                        </div>
+                        <div class="py-4">
+                            <p class="text-color-14 text-sm">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="flex gap-2 pt-3">
+                                <a href="javascript:void(0)" class="text-link hover:text-link-1"><span>Card link</span></a>
+                                <a href="javascript:void(0)" class="text-link hover:text-link-1"><span>Another link</span></a>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 flex justify-between pt-3 mt-auto">
+                            <span class="text-gray-500 text-sm font-light">3 hours ago</span>
+                            <a href="javascript:void(0)" class="text-link hover:text-link-1"><span>Read More </span></a>
+                        </div>
+                    </div>
+                    <div class="col-span-8 bg-white hidden sm:flex flex-col rounded shadow-4 p-5 overflow-hidden">
+                        <h3 class="text-color-14 font-medium uppercase gap-1 flex items-center pb-4">Horizontal Timeline
+                        </h3>
+                        <div class="horizontal-timeline 2xl:py-16 2xl:px-20" id="example">
+                            <div class="events-content">
+                                <ol>
+                                    <li data-horizontal-timeline='{"date": "16/01/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/02/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/03/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/04/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/05/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/06/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/07/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/08/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/09/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/10/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/11/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                    <li data-horizontal-timeline='{"date": "16/12/2015"}'>
+                                        <div class="flex flex-col gap-3 sm:gap-10 lg:text-lg text-gray-400 leading-relaxed">
+                                            <div class="flex flex-col sm:flex-row gap-3 sm:gap-10">
+                                                <div class="w-20 h-20 overflow-hidden">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="">
+                                                </div>
+                                                <div class="flex flex-col flex-1">
+                                                    <p class="text-left text-sm lg:text-lg">Sometimes life is going to hit you in the head with a brick. Don't lose faith.</p>
+                                                    <p class="text-sm lg:text-lg text-right">Steve Jobs <i clas="italic">Entrepreneur</i></p>
+                                                </div>
+                                            </div>
+                                            <p class="text-sm lg:text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                mollit anim id est laborum.</p>
+                                        </div>
+                                    </li>
+
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
+
+            <footer class="shadow-6 bg-white py-3 px-10 flex justify-center sm:justify-between  ">
+                <p class="text-sm"><span class="block md:inline-block">Copyright © 2022 <a class="text-link hover:text-link-1" href="javascript:void(0)" target="_blank">PIXINVENT</a></span></p>
+                <p class="text-sm text-gray-500 sm:flex gap-2 hidden "><span>Hand-crafted & Made with</span><i class="icon-heart text-sm text-color-15"></i></p>
+            </footer>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Scripts -->
+    <script src="../node_modules/alpinejs/dist/alpine.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/apexcharts/dist/apexcharts.js"></script>
+    <script src="../node_modules/chartist/dist/chartist.min.js"></script>
+
+
+    <script src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="../node_modules/tippy.js/dist/tippy.umd.min.js"></script>
+
+
+    <!-- Add JS via jsdilvr CDN -->
+    <script src="assets/dist/js/horizontal_timeline.2.0_v2.0.5.3.js"></script>
+
+    <script>
+        var dsc = document.querySelector('.desktop-toggle');
+        dsc.onclick = function() {
+            document.querySelector('.toggle-icon').classList.toggle('ft-toggle-right')
+            document.querySelector('body').classList.toggle('desktop-sidebar-collapse');
+        }
+
+
+
+        // Tippy Tooltip
+        tippy('.avtar-tooltip', {
+            content: "John Doe",
+            // default
+            arrow: true,
+        });
+        tippy('.avtar-tooltip2', {
+            content: "Kimberly Simmons",
+            // default
+            arrow: true,
+        });
+
+
+
+        // Timeline Slider
+        jQuery('#example').horizontalTimeline({
+            dateDisplay: "dayMonth",
+            iconClass: {
+                "base": "fas fa-3x", // Space separated class names
+                "scrollLeft": "hidden",
+                "scrollRight": "hidden",
+                "prev": "prev-btn",
+                "next": "next-btn",
+                "pause": "fa-pause-circle",
+                "play": "fa-play-circle"
+            },
+
+        });
+
+
+        var optionsStepline = {
+            series: [{
+                data: [34, 44, 54, 21, 12, 43, 33, 23, 66, 66, 58]
+            }],
+            chart: {
+                type: 'line',
+                height: 350,
+                dropShadow: {
+                    enabled: true,
+                    top: 20,
+                    left: 0,
+                    blur: 10,
+                    color: ['rgba(0, 0, 0, 1)', 'rgba(0, 0, 0, 1)'],
+                    opacity: 0.2
+                },
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+
+            dataLabels: {
+                enabled: false
+            },
+            title: {
+                text: 'Stepline Chart',
+                align: 'left'
+            },
+            markers: {
+                hover: {
+                    sizeOffset: 4
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), optionsStepline);
+        chart.render();
+
+        var optionsBar = {
+            series: [{
+                data: [21, 22, 10, 28, 16, 21, 13, 30]
+            }],
+            chart: {
+                height: 300,
+                type: 'bar',
+
+            },
+            colors: ['#ff4961', '#ff4961', '#ff4961', '#ff4961', '#ff4961'],
+            plotOptions: {
+                bar: {
+                    columnWidth: '30%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+
+                labels: {
+                    style: {
+                        colors: ['#ff4961', '#ff4961', '#ff4961', '#ff4961', '#ff4961'],
+                        fontSize: '12px'
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chartBar"), optionsBar);
+        chart.render();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar */
+
+.scroll::-webkit-scrollbar {
+    @apply w-2 h-2
+}
+
+.scroll::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded-full
+}
+
+.on-hover-scroll::-webkit-scrollbar {
+    @apply w-1 h-1;
+}
+
+.on-hover-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-none absolute;
+}
+
+.on-hover-scroll::-webkit-scrollbar-thumb {
+    @apply bg-transparent transition-all duration-200 ease-in-out rounded-full;
+}
+
+.on-hover-scroll:hover::-webkit-scrollbar-thumb {
+    @apply bg-black/20;
+}
+
+.topnav {
+    @screen lg {
+        @apply flex !important
+    }
+}
+
+.sidebar {
+    @screen lg {
+        @apply flex !important
+    }
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+    @apply w-1.5 h-1.5;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-none absolute;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+    @apply bg-transparent transition-all duration-200 ease-in-out rounded-full;
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+    @apply bg-white/30;
+}
+
+
+/*Sidebar Desktop Collapse*/
+
+.desktop-sidebar-collapse {
+    @screen lg {
+        .sidebar:not(:hover) {
+            @apply w-auto text-center;
+            ul>li>a,
+            ul>li>button {
+                @apply justify-center
+            }
+            .logo-side {
+                @apply text-center justify-center;
+                width: 84px;
+                .logo {
+                    @apply justify-center
+                }
+                .collapse-btn {
+                    @apply hidden
+                }
+            }
+            .s-h-title,
+            .s-label,
+            .s-arrow {
+                @apply hidden
+            }
+            .s-h-ellipsis {
+                @apply inline-block
+            }
+        }
+        .main-content,
+        nav {
+            padding-left: 72px !important;
+        }
+    }
+}
+
+
+/*Timeline CSS*/
+
+.horizontal-timeline {
+    .events-content {
+        li {
+            @apply bg-transparent rounded-none;
+        }
+    }
+    .timeline {
+        @apply px-10;
+        @media (max-width: 767px) {
+            .timeline-navigation {
+                &#leftNav, &#rightNav {
+                    @apply hidden !important
+                }
+            }
+        }
+    }
+    .timeline-navigation {
+        a {
+            &:hover {
+                @apply text-color-3 border-color-3;
+            }
+        }
+    }
+    .events {
+        @apply h-0.5 bg-color-20;
+        a {
+            bottom: -2px;
+            &:hover {
+                @apply no-underline
+            }
+            &:after {
+                @apply border border-gray-400 bg-white !important;
+            }
+            &.older-event {
+                &:after {
+                    @apply bg-color-3 border-color-3 !important;
+                }
+            }
+            &.selected {
+                &:after {
+                    @apply bg-color-3 border-color-3 !important;
+                }
+            }
+        }
+    }
+    .filling-line {
+        @apply bg-color-3;
+    }
+    .prev-btn {
+        @apply text-sm border-2 border-gray-300 rounded-full bg-white text-gray-600 w-10 h-10 -left-10 top-1 absolute flex justify-center items-center;
+        &:after {
+            content: "\f111";
+            font: normal normal normal 16px/1 LineAwesome;
+        }
+    }
+    .next-btn {
+        @apply text-sm border-2 border-gray-300 rounded-full bg-white text-gray-600 w-10 h-10 -right-10 top-1 absolute flex justify-center items-center;
+        &:after {
+            content: "\f112";
+            font: normal normal normal 16px/1 LineAwesome;
+        }
+    }
+}
